@@ -1,20 +1,8 @@
-const getApiBaseUrl = () => {
-  if (typeof window === "undefined") {
-    return "http://127.0.0.1:8000"
-  }
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
-  const hostname = window.location.hostname
-
-  // PC에서 localhost로 접속한 경우
-  if (hostname === "localhost" || hostname === "127.0.0.1") {
-    return "http://127.0.0.1:8000"
-  }
-
-  // 폰이나 같은 와이파이의 다른 기기에서 접속한 경우
-  return `http://${hostname}:8000`
+if (!API_BASE_URL) {
+  throw new Error("NEXT_PUBLIC_API_BASE_URL 환경변수가 설정되지 않았습니다.")
 }
-
-const API_BASE_URL = getApiBaseUrl()
 
 export type RpsLabel = "rock" | "paper" | "scissor"
 export type CccLabel = "left" | "right" | "front"
